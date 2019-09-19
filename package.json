@@ -1,0 +1,45 @@
+{
+  "name": "colorproxy",
+  "productName": "Color",
+  "version": "1.0.0-beta.98",
+  "description": "Color Proxy is the user interface for the Color.",
+  "author": "Color Platform Organization. <hello@color-platform.org>",
+  "license": "Apache-2.0",
+  "homepage": "https://wallet.color-platform.org/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luniehq/lunie.git"
+  },
+  "engines": {
+    "node": ">=10.13.0"
+  },
+  "scripts": {
+    "proxy": "node ./tasks/local-testnet/proxy.js",
+    "certificates": "docker-compose -f tasks/certificates/docker-compose.yml up"
+  },
+  "devDependencies": {
+    "cross-env": "5.2.0"
+  },
+  "dependencies": {
+    "http-proxy": "1.18.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "lint-prepush"
+    }
+  },
+  "lint-prepush": {
+    "base": "develop",
+    "tasks": {
+      "*.{js,vue}": [
+        "eslint --fix",
+        "jest --bail --coverage --findRelatedTests",
+        "git add"
+      ],
+      "*.{css,vue}": [
+        "stylelint --fix",
+        "git add"
+      ]
+    }
+  }
+}
